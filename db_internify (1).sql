@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2024 at 11:48 AM
+-- Generation Time: Jun 16, 2024 at 04:19 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -35,6 +35,13 @@ CREATE TABLE `anggota` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `anggota`
+--
+
+INSERT INTO `anggota` (`id_anggota`, `id_kelompok`, `nim_anggota`, `created_at`, `updated_at`) VALUES
+('aa9675aa-2bea-11ef-a91a-e0d4643cc6a6', 2, '2011522023', '2024-06-16 14:13:48', '2024-06-16 14:13:48');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +54,13 @@ CREATE TABLE `kelompok` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kelompok`
+--
+
+INSERT INTO `kelompok` (`id_kelompok`, `nim_ketua`, `created_at`, `updated_at`) VALUES
+(2, '2011522056', '2024-06-16 14:13:19', '2024-06-16 14:13:19');
 
 -- --------------------------------------------------------
 
@@ -67,7 +81,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nim_ketua`, `created_at`, `updated_at`, `nama`, `password`) VALUES
-('2111522021', '2024-06-09 07:52:01', '2024-06-09 07:52:01', 'nadini', '$2b$10$FIBUSF229rvxcFkECsL2Ee2Z44XHtgnNAyXmiEC9MR2Z2KC8aUgQu');
+('2011522023', '2024-06-16 14:13:33', '2024-06-16 14:13:33', 'cahaya ilahi', '$2b$10$nq8UWb1dugZkz6pk88sP6uswuy2xqZ0ULWgqL/tBir530umfL/H3C'),
+('2011522056', '2024-06-16 14:11:16', '2024-06-16 14:18:49', 'cahaya', '$2b$10$NjNDJsrXwpcvGA/FZybzkeJu3tXugGbdj.FHdkX7XHyzkSVw6rxDu');
 
 -- --------------------------------------------------------
 
@@ -79,14 +94,21 @@ CREATE TABLE `pengajuan_kp` (
   `id_pengajuan` char(36) NOT NULL,
   `nip` varchar(20) NOT NULL,
   `id_kelompok` int(11) NOT NULL,
-  `id_suratPengantar` char(36) NOT NULL,
-  `id_suratBalasan` char(36) NOT NULL,
+  `id_suratPengantar` char(36) DEFAULT NULL,
+  `id_suratBalasan` char(36) DEFAULT NULL,
   `id_proposal` char(36) NOT NULL,
-  `id_suratTugas` char(36) NOT NULL,
+  `id_suratTugas` char(36) DEFAULT NULL,
   `status_pengajuan` varchar(30) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengajuan_kp`
+--
+
+INSERT INTO `pengajuan_kp` (`id_pengajuan`, `nip`, `id_kelompok`, `id_suratPengantar`, `id_suratBalasan`, `id_proposal`, `id_suratTugas`, `status_pengajuan`, `created_at`, `updated_at`) VALUES
+('ac0508f6-1056-4b39-92a9-e826ebc6e0c5', '12345678', 2, '233b9285-2beb-11ef-a91a-e0d4643cc6a6', '440f0ba2-1290-4a1c-b3c4-7fe4588458ae', 'aa527569-9341-4901-899e-edfdc7f1675e', NULL, 'Diproses', '2024-06-16 14:14:19', '2024-06-16 14:17:39');
 
 -- --------------------------------------------------------
 
@@ -111,7 +133,7 @@ CREATE TABLE `proposal` (
 --
 
 INSERT INTO `proposal` (`id_proposal`, `tanggal_pengajuan`, `judul_proposal`, `perusahaan_tujuan`, `lokasi`, `file_proposal`, `status_proposal`, `created_at`, `updated_at`) VALUES
-('7f05d8b9-56da-48cf-afe0-989960489196', '0000-00-00', 'ini judul', 'telkomsel', 'padang', '52605-180560-1-PB.pdf', 'menunggu', '2024-06-09 09:39:45', '2024-06-09 09:39:45');
+('aa527569-9341-4901-899e-edfdc7f1675e', '0000-00-00', 'ini judul baru edit', 'telkomsel', 'padang baru edit', 'Colorful Playful Illustration 2024 Calendar.pdf', 'Disetujui', '2024-06-16 14:14:19', '2024-06-16 14:16:08');
 
 -- --------------------------------------------------------
 
@@ -132,7 +154,7 @@ CREATE TABLE `sekretaris` (
 --
 
 INSERT INTO `sekretaris` (`nip`, `nama`, `password`, `created_at`, `updated_at`) VALUES
-('2111522021', 'kak dini', '$2b$10$M4BjRReoM3vKuXru2fVbf..E6BYQM6Hwu1QadgBIMiKpPLDXx9uIS', '2024-06-09 08:00:00', '2024-06-09 08:00:00');
+('12345678', 'sekre SI', '$2b$10$PJ78cj1RoaxGxzw8vzHEfuWgE73XSMhasBxIRcYXXWBEVmzK73M3u', '2024-06-16 14:11:52', '2024-06-16 14:11:52');
 
 -- --------------------------------------------------------
 
@@ -150,6 +172,13 @@ CREATE TABLE `surat_balasan` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `surat_balasan`
+--
+
+INSERT INTO `surat_balasan` (`id_suratBalasan`, `tanggal_pengajuan`, `perusahaan_tujuan`, `status`, `file_surat_balasan`, `created_at`, `updated_at`) VALUES
+('440f0ba2-1290-4a1c-b3c4-7fe4588458ae', '2024-12-12', 'zyx', 'Diterima', 'Colorful Playful Illustration 2024 Calendar.pdf', '2024-06-16 14:17:39', '2024-06-16 14:17:39');
+
 -- --------------------------------------------------------
 
 --
@@ -162,9 +191,17 @@ CREATE TABLE `surat_pengantar` (
   `tanggal_mulai` date NOT NULL,
   `tanggal_selesai` date NOT NULL,
   `file_suratPengantar` varchar(256) DEFAULT NULL,
+  `status` varchar(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `surat_pengantar`
+--
+
+INSERT INTO `surat_pengantar` (`id_suratPengantar`, `perusahaan_tujuan`, `tanggal_mulai`, `tanggal_selesai`, `file_suratPengantar`, `status`, `created_at`, `updated_at`) VALUES
+('233b9285-2beb-11ef-a91a-e0d4643cc6a6', 'xyz', '2024-06-11', '2024-06-12', 'xyz.pdf', 'disetujui', '2024-06-16 14:17:11', '2024-06-16 14:17:11');
 
 -- --------------------------------------------------------
 
@@ -182,6 +219,13 @@ CREATE TABLE `surat_tugas` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `surat_tugas`
+--
+
+INSERT INTO `surat_tugas` (`id_surat_tugas`, `perusahaan_tujuan`, `tanggal_mulai`, `tanggal_selesai`, `file_surat_tugas`, `status`, `created_at`, `updated_at`) VALUES
+('1712b05f-2be6-11ef-a91a-e0d4643cc6a6', 'xyz', '2024-06-19', '2024-06-10', 'xyz.pdf', 'disetujui', '2024-06-16 13:41:03', '2024-06-16 13:41:03');
 
 -- --------------------------------------------------------
 
@@ -202,7 +246,8 @@ CREATE TABLE `token_mahasiswa` (
 --
 
 INSERT INTO `token_mahasiswa` (`id_token`, `token`, `nim_ketua`, `created_at`, `expires_at`) VALUES
-(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMTExNTIyMDIxIiwiaWF0IjoxNzE3OTIyODk4LCJleHAiOjE3MTg1Mjc2OTh9.Y5bLRzMOVG1hRleyEc3QRl2pFf3DwJseZAV7ysFeeFI', '2111522021', '2024-06-09 08:48:11', '2024-06-16');
+(4, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMDExNTIyMDU2IiwiaWF0IjoxNzE4NTQ3MTM5LCJleHAiOjE3MTkxNTE5Mzl9.v_vFgy76zO-SpWdkQ7PYRR0-UfB-HkedJguMoj8I00U', '2011522056', '2024-06-16 14:09:21', '2024-06-23'),
+(5, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMDExNTIyMDU2IiwiaWF0IjoxNzE4NTQ3NTM3LCJleHAiOjE3MTkxNTIzMzd9.gmgOURTW_qg8KyoKf1xyNP1hwNXW65MZ4Q6yLztKTq0', '2011522056', '2024-06-16 14:09:21', '2024-06-23');
 
 -- --------------------------------------------------------
 
@@ -223,7 +268,7 @@ CREATE TABLE `token_sekretaris` (
 --
 
 INSERT INTO `token_sekretaris` (`id_token`, `token`, `nip`, `created_at`, `expires_at`) VALUES
-(1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaXAiOiIyMTExNTIyMDIxIiwiaWF0IjoxNzE3OTIzMDA0LCJleHAiOjE3MTg1Mjc4MDR9.i_NItrsgmr3HYRjkVJwpE2HxIcIQAnTLhQfk_Qpk8wM', '2111522021', '2024-06-09 08:50:01', '2024-06-16');
+(3, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaXAiOiIxMjM0NTY3OCIsImlhdCI6MTcxODU0NzU2NCwiZXhwIjoxNzE5MTUyMzY0fQ.n7tOXzTx2BalSvGjG3HfN8Fpmu9D206HOHCWGf5bCRM', '12345678', '2024-06-16 14:09:21', '2024-06-23');
 
 --
 -- Indexes for dumped tables
@@ -313,19 +358,19 @@ ALTER TABLE `token_sekretaris`
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `token_mahasiswa`
 --
 ALTER TABLE `token_mahasiswa`
-  MODIFY `id_token` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_token` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `token_sekretaris`
 --
 ALTER TABLE `token_sekretaris`
-  MODIFY `id_token` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_token` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
