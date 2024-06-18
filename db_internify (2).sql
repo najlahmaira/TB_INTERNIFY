@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2024 at 04:19 PM
+-- Generation Time: Jun 18, 2024 at 01:58 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -82,7 +82,8 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`nim_ketua`, `created_at`, `updated_at`, `nama`, `password`) VALUES
 ('2011522023', '2024-06-16 14:13:33', '2024-06-16 14:13:33', 'cahaya ilahi', '$2b$10$nq8UWb1dugZkz6pk88sP6uswuy2xqZ0ULWgqL/tBir530umfL/H3C'),
-('2011522056', '2024-06-16 14:11:16', '2024-06-16 14:18:49', 'cahaya', '$2b$10$NjNDJsrXwpcvGA/FZybzkeJu3tXugGbdj.FHdkX7XHyzkSVw6rxDu');
+('2011522056', '2024-06-16 14:11:16', '2024-06-16 14:18:49', 'cahaya', '$2b$10$NjNDJsrXwpcvGA/FZybzkeJu3tXugGbdj.FHdkX7XHyzkSVw6rxDu'),
+('221521000', '2024-06-18 01:46:09', '2024-06-18 01:46:09', 'najla', '$2b$10$8uu24HX/xafgLgRD/hm1UeiE79.UzpvW0yFnuyfzk5D41WQLeatw2');
 
 -- --------------------------------------------------------
 
@@ -177,7 +178,8 @@ CREATE TABLE `surat_balasan` (
 --
 
 INSERT INTO `surat_balasan` (`id_suratBalasan`, `tanggal_pengajuan`, `perusahaan_tujuan`, `status`, `file_surat_balasan`, `created_at`, `updated_at`) VALUES
-('440f0ba2-1290-4a1c-b3c4-7fe4588458ae', '2024-12-12', 'zyx', 'Diterima', 'Colorful Playful Illustration 2024 Calendar.pdf', '2024-06-16 14:17:39', '2024-06-16 14:17:39');
+('440f0ba2-1290-4a1c-b3c4-7fe4588458ae', '2024-12-12', 'zyx', 'Diterima', 'Colorful Playful Illustration 2024 Calendar.pdf', '2024-06-16 14:17:39', '2024-06-16 14:17:39'),
+('fa35b5a3-ed36-486b-8158-197a3c4399b4', '2024-06-19', 'test', 'ditolak', 'jurnaladm,+317-319+-+willy+kurniawan.pdf', '2024-06-18 10:47:59', '2024-06-18 10:47:59');
 
 -- --------------------------------------------------------
 
@@ -201,6 +203,7 @@ CREATE TABLE `surat_pengantar` (
 --
 
 INSERT INTO `surat_pengantar` (`id_suratPengantar`, `perusahaan_tujuan`, `tanggal_mulai`, `tanggal_selesai`, `file_suratPengantar`, `status`, `created_at`, `updated_at`) VALUES
+('0a81e529-2d60-11ef-9742-8c8caa02d115', 'test', '2024-06-19', '2024-07-24', 'abc.pdf', 'disetujui', '2024-06-18 10:46:35', '2024-06-18 10:46:35'),
 ('233b9285-2beb-11ef-a91a-e0d4643cc6a6', 'xyz', '2024-06-11', '2024-06-12', 'xyz.pdf', 'disetujui', '2024-06-16 14:17:11', '2024-06-16 14:17:11');
 
 -- --------------------------------------------------------
@@ -247,7 +250,12 @@ CREATE TABLE `token_mahasiswa` (
 
 INSERT INTO `token_mahasiswa` (`id_token`, `token`, `nim_ketua`, `created_at`, `expires_at`) VALUES
 (4, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMDExNTIyMDU2IiwiaWF0IjoxNzE4NTQ3MTM5LCJleHAiOjE3MTkxNTE5Mzl9.v_vFgy76zO-SpWdkQ7PYRR0-UfB-HkedJguMoj8I00U', '2011522056', '2024-06-16 14:09:21', '2024-06-23'),
-(5, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMDExNTIyMDU2IiwiaWF0IjoxNzE4NTQ3NTM3LCJleHAiOjE3MTkxNTIzMzd9.gmgOURTW_qg8KyoKf1xyNP1hwNXW65MZ4Q6yLztKTq0', '2011522056', '2024-06-16 14:09:21', '2024-06-23');
+(5, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMDExNTIyMDU2IiwiaWF0IjoxNzE4NTQ3NTM3LCJleHAiOjE3MTkxNTIzMzd9.gmgOURTW_qg8KyoKf1xyNP1hwNXW65MZ4Q6yLztKTq0', '2011522056', '2024-06-16 14:09:21', '2024-06-23'),
+(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMjE1MjEwMDAiLCJpYXQiOjE3MTg2NzUxODYsImV4cCI6MTcxOTI3OTk4Nn0.HUwR4w3gBr7eP2jWHfBHgDjV_XCjoUfRN1JurvE4Mg4', '221521000', '2024-06-18 01:23:42', '2024-06-25'),
+(7, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMjE1MjEwMDAiLCJpYXQiOjE3MTg2OTAwNjcsImV4cCI6MTcxOTI5NDg2N30.CcYAoCUyNivRytr930JVXOit5hYL_LYI85t0BUKnEpY', '221521000', '2024-06-18 05:53:06', '2024-06-25'),
+(8, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMjE1MjEwMDAiLCJpYXQiOjE3MTg2OTcyODgsImV4cCI6MTcxOTMwMjA4OH0.YD7i36X1-WUI5P0xjFs0sgVdoXvqbdxdzY-t3c_Ku5A', '221521000', '2024-06-18 07:54:13', '2024-06-25'),
+(9, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMjE1MjEwMDAiLCJpYXQiOjE3MTg3MDI0ODUsImV4cCI6MTcxOTMwNzI4NX0.z02Bpcijv7cdaCJfLUwbzj0YHWN7d3lUomXhOl3B3jI', '221521000', '2024-06-18 09:21:14', '2024-06-25'),
+(10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuaW0iOiIyMjE1MjEwMDAiLCJpYXQiOjE3MTg3MDcwNTUsImV4cCI6MTcxOTMxMTg1NX0.0HVvndKmB4Uu8CmHCJSeAGvYLiapFSoBCLv9eehvt2M', '221521000', '2024-06-18 10:37:16', '2024-06-25');
 
 -- --------------------------------------------------------
 
@@ -358,13 +366,13 @@ ALTER TABLE `token_sekretaris`
 -- AUTO_INCREMENT for table `kelompok`
 --
 ALTER TABLE `kelompok`
-  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `token_mahasiswa`
 --
 ALTER TABLE `token_mahasiswa`
-  MODIFY `id_token` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_token` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `token_sekretaris`
@@ -397,7 +405,7 @@ ALTER TABLE `pengajuan_kp`
   ADD CONSTRAINT `pengajuan_kp_ibfk_4` FOREIGN KEY (`id_suratPengantar`) REFERENCES `surat_pengantar` (`id_suratPengantar`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pengajuan_kp_ibfk_5` FOREIGN KEY (`id_suratTugas`) REFERENCES `surat_tugas` (`id_surat_tugas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pengajuan_kp_ibfk_6` FOREIGN KEY (`nip`) REFERENCES `sekretaris` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pengajuan_kp_ibfk_7` FOREIGN KEY (`id_proposal`) REFERENCES `proposal` (`id_proposal`);
+  ADD CONSTRAINT `pengajuan_kp_ibfk_7` FOREIGN KEY (`id_proposal`) REFERENCES `proposal` (`id_proposal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `token_mahasiswa`

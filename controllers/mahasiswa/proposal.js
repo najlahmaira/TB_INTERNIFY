@@ -133,6 +133,13 @@ const hapusProposal = async (req,res) => {
         if (!findProposal) {
             return res.status(400).json({success: false, message: 'Proposal tidak ditemukan'})
         }
+        await modelPengajuanKp.update({
+            id_proposal: null
+        }, {
+            where:{
+                id_proposal: id_proposal
+            }
+        })
         await modelProposal.destroy({
             where:{id_proposal: id_proposal}
         })
