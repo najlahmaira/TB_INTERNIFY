@@ -2,6 +2,7 @@ const modelProposal = require('../../models/proposal')
 const modelPengajuanKp = require('../../models/pengajuan_kp')
 const modelKelompok = require('../../models/kelompok')
 const modelSekretaris = require('../../models/sekretaris')
+const {Op} = require('sequelize')
 const multer = require('multer')
 const path = require('path')
 
@@ -178,7 +179,10 @@ const detailProposal = async (req,res) => {
         }
         const findPengajuan = await modelPengajuanKp.findOne({
             where:{
-                id_kelompok:findKelompok.id_kelompok
+                id_kelompok:findKelompok.id_kelompok,
+                id_proposal: {
+                    [Op.ne]: null
+                }
             },
             include: [
                 {
