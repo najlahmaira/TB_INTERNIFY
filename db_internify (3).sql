@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2024 at 01:58 PM
+-- Generation Time: Jun 18, 2024 at 02:11 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -97,7 +97,7 @@ CREATE TABLE `pengajuan_kp` (
   `id_kelompok` int(11) NOT NULL,
   `id_suratPengantar` char(36) DEFAULT NULL,
   `id_suratBalasan` char(36) DEFAULT NULL,
-  `id_proposal` char(36) NOT NULL,
+  `id_proposal` char(36) DEFAULT NULL,
   `id_suratTugas` char(36) DEFAULT NULL,
   `status_pengajuan` varchar(30) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -109,7 +109,7 @@ CREATE TABLE `pengajuan_kp` (
 --
 
 INSERT INTO `pengajuan_kp` (`id_pengajuan`, `nip`, `id_kelompok`, `id_suratPengantar`, `id_suratBalasan`, `id_proposal`, `id_suratTugas`, `status_pengajuan`, `created_at`, `updated_at`) VALUES
-('ac0508f6-1056-4b39-92a9-e826ebc6e0c5', '12345678', 2, '233b9285-2beb-11ef-a91a-e0d4643cc6a6', '440f0ba2-1290-4a1c-b3c4-7fe4588458ae', 'aa527569-9341-4901-899e-edfdc7f1675e', NULL, 'Diproses', '2024-06-16 14:14:19', '2024-06-16 14:17:39');
+('ac0508f6-1056-4b39-92a9-e826ebc6e0c5', '12345678', 2, '233b9285-2beb-11ef-a91a-e0d4643cc6a6', '440f0ba2-1290-4a1c-b3c4-7fe4588458ae', NULL, NULL, 'Diproses', '2024-06-16 14:14:19', '2024-06-18 12:10:46');
 
 -- --------------------------------------------------------
 
@@ -128,13 +128,6 @@ CREATE TABLE `proposal` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `proposal`
---
-
-INSERT INTO `proposal` (`id_proposal`, `tanggal_pengajuan`, `judul_proposal`, `perusahaan_tujuan`, `lokasi`, `file_proposal`, `status_proposal`, `created_at`, `updated_at`) VALUES
-('aa527569-9341-4901-899e-edfdc7f1675e', '0000-00-00', 'ini judul baru edit', 'telkomsel', 'padang baru edit', 'Colorful Playful Illustration 2024 Calendar.pdf', 'Disetujui', '2024-06-16 14:14:19', '2024-06-16 14:16:08');
 
 -- --------------------------------------------------------
 

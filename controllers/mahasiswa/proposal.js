@@ -69,14 +69,31 @@ const uploadProposal = async (req,res) => {
             status_proposal: 'Disetujui'
         })
 
-        await modelPengajuanKp.create({
-            nip: findSekre.nip,
-            id_kelompok: findKelompok.id_kelompok,
-            id_proposal: tambahProposal.id_proposal,
-            status_pengajuan: 'Diproses'
+        const findPengajuan = await modelPengajuanKp.findOne({
+            where:{
+                id_kelompok: findKelompok.dataValues.id_kelompok
+            }
+        })
+        if (!findPengajuan) {
+            await modelPengajuanKp.create({
+                nip: findSekre.nip,
+                id_kelompok: findKelompok.id_kelompok,
+                id_proposal: tambahProposal.id_proposal,
+                status_pengajuan: 'Diproses'
+            })
+    
+            return res.status(200).json({success: true, message: 'Proposal berhasil ditambahkan'})
+        }
+
+        await modelPengajuanKp.update({
+            id_proposal: tambahProposal.id_proposal
+        }, {
+            where:{
+                id_pengajuan: findPengajuan.dataValues.id_pengajuan
+            }
         })
 
-        return res.status(200).json({success: true, message: 'Proposal berhasil ditambahkan'})
+        return res.status(200).json({success: true, message: 'Proposal Berhasil ditambahkan'})
     } catch (error) {
         console.log(error)
         return res.status(500).json({success: false, message: 'Kesalahan Server'})
