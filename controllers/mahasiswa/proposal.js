@@ -2,8 +2,10 @@ const modelProposal = require('../../models/proposal')
 const modelPengajuanKp = require('../../models/pengajuan_kp')
 const modelKelompok = require('../../models/kelompok')
 const modelSekretaris = require('../../models/sekretaris')
+const {Op} = require('sequelize')
 const multer = require('multer')
 const path = require('path')
+const {Op} = require('sequelize')
 
 //upload proposal
 const storage = multer.diskStorage({
@@ -32,32 +34,58 @@ const upload = multer({
 });
 const uploadd = upload.single('file')
 
-const uploadProposal = async (req,res) => {
+const uploadProposal = async (req, res) => {
     try {
-        const{tanggal_pengajuan, judul_proposal, perusahaan_tujuan, lokasi} = req.body
+        const {
+            tanggal_pengajuan,
+            judul_proposal,
+            perusahaan_tujuan,
+            lokasi
+        } = req.body
         const file_proposal = req.file
         const nim_ketua = req.mahasiswa.nim
         if (!tanggal_pengajuan || !judul_proposal || !perusahaan_tujuan || !lokasi) {
-            return res.status(400).json({success: false, message: 'Lengkapi data proposal anda'})
+            return res.status(400).json({
+                success: false,
+                message: 'Lengkapi data proposal anda'
+            })
         }
         if (!file_proposal) {
-            return res.status(400).json({success: false, message: 'Silahkan inputkan file anda'})
+            return res.status(400).json({
+                success: false,
+                message: 'Silahkan inputkan file anda'
+            })
         }
-        const findFile = await modelProposal.findOne({where:{
-            file_proposal: file_proposal.originalname
-        }})
+        const findFile = await modelProposal.findOne({
+            where: {
+                file_proposal: file_proposal.originalname
+            }
+        })
         if (findFile) {
-            return res.status(400).json({success: false, message: 'File proposal anda sudah pernah ditambahkan'})
+            return res.status(400).json({
+                success: false,
+                message: 'File proposal anda sudah pernah ditambahkan'
+            })
         }
 
-        const findKelompok = await modelKelompok.findOne({where: {nim_ketua: nim_ketua}})
+        const findKelompok = await modelKelompok.findOne({
+            where: {
+                nim_ketua: nim_ketua
+            }
+        })
         if (!findKelompok) {
-            return res.status(400).json({success: false, message: 'Kelompok tidak ditemukan'})
+            return res.status(400).json({
+                success: false,
+                message: 'Kelompok tidak ditemukan'
+            })
         }
 
         const findSekre = await modelSekretaris.findOne()
         if (!findSekre) {
-            return res.status(400).json({success: false, message: 'Data sekretaris tidak ditemukan'})
+            return res.status(400).json({
+                success: false,
+                message: 'Data sekretaris tidak ditemukan'
+            })
         }
 
         const tambahProposal = await modelProposal.create({
@@ -70,7 +98,7 @@ const uploadProposal = async (req,res) => {
         })
 
         const findPengajuan = await modelPengajuanKp.findOne({
-            where:{
+            where: {
                 id_kelompok: findKelompok.dataValues.id_kelompok
             }
         })
@@ -81,34 +109,53 @@ const uploadProposal = async (req,res) => {
                 id_proposal: tambahProposal.id_proposal,
                 status_pengajuan: 'Diproses'
             })
-    
-            return res.status(200).json({success: true, message: 'Proposal berhasil ditambahkan'})
+
+            return res.status(200).json({
+                success: true,
+                message: 'Proposal berhasil ditambahkan'
+            })
         }
 
         await modelPengajuanKp.update({
             id_proposal: tambahProposal.id_proposal
         }, {
-            where:{
+            where: {
                 id_pengajuan: findPengajuan.dataValues.id_pengajuan
             }
         })
 
-        return res.status(200).json({success: true, message: 'Proposal Berhasil ditambahkan'})
+        return res.status(200).json({
+            success: true,
+            message: 'Proposal Berhasil ditambahkan'
+        })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({success: false, message: 'Kesalahan Server'})
+        return res.status(500).json({
+            success: false,
+            message: 'Kesalahan Server'
+        })
     }
 }
 
 //edit proposal
-const editProposal = async (req,res) => {
+const editProposal = async (req, res) => {
     try {
-        const {id_proposal} = req.params
+        const {
+            id_proposal
+        } = req.params
         const findProposal = await modelProposal.findByPk(id_proposal)
         if (!findProposal) {
-            return res.status(400).json({success: false, message: 'Proposal tidak ditemukan'})
+            return res.status(400).json({
+                success: false,
+                message: 'Proposal tidak ditemukan'
+            })
         }
-        const {tanggal_pengajuan, judul_proposal, perusahaan_tujuan, lokasi} = req.body
+        const {
+            tanggal_pengajuan,
+            judul_proposal,
+            perusahaan_tujuan,
+            lokasi
+        } = req.body
         const file_proposal = req.file
         if (!file_proposal) {
             await modelProposal.update({
@@ -117,11 +164,14 @@ const editProposal = async (req,res) => {
                 perusahaan_tujuan: perusahaan_tujuan || findProposal.perusahaan_tujuan,
                 lokasi: lokasi || findProposal.lokasi
             }, {
-                where:{
+                where: {
                     id_proposal: id_proposal
                 }
             })
-            return res.status(200).json({success: true, message: 'Proposal anda berhasil diperbaharui'})
+            return res.status(200).json({
+                success: true,
+                message: 'Proposal anda berhasil diperbaharui'
+            })
         }
         await modelProposal.update({
             tanggal_pengajuan: tanggal_pengajuan || findProposal.tanggal_pengajuan,
@@ -130,74 +180,135 @@ const editProposal = async (req,res) => {
             lokasi: lokasi || findProposal.lokasi,
             file_proposal: file_proposal.originalname
         }, {
-            where:{
+            where: {
                 id_proposal: id_proposal
             }
         })
-        return res.status(200).json({success: true, message: 'Proposal anda berhasil diperbaharui'})
+        return res.status(200).json({
+            success: true,
+            message: 'Proposal anda berhasil diperbaharui'
+        })
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({success: false, message: 'Kesalahan Server'})
+        return res.status(500).json({
+            success: false,
+            message: 'Kesalahan Server'
+        })
     }
 }
 
 //hapus proposal
-const hapusProposal = async (req,res) => {
+const hapusProposal = async (req, res) => {
     try {
-        const {id_proposal} = req.params
+        const {
+            id_proposal
+        } = req.params
         const findProposal = await modelProposal.findByPk(id_proposal)
         if (!findProposal) {
-            return res.status(400).json({success: false, message: 'Proposal tidak ditemukan'})
+            return res.status(400).json({
+                success: false,
+                message: 'Proposal tidak ditemukan'
+            })
         }
         await modelPengajuanKp.update({
             id_proposal: null
         }, {
-            where:{
+            where: {
                 id_proposal: id_proposal
             }
         })
         await modelProposal.destroy({
-            where:{id_proposal: id_proposal}
+            where: {
+                id_proposal: id_proposal
+            }
         })
-        return res.status(200).json({success: true, message: 'Proposal anda berhasil dihapus'})
+        return res.status(200).json({
+            success: true,
+            message: 'Proposal anda berhasil dihapus'
+        })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({success: false, message: 'Kesalahan Server'})
+        return res.status(500).json({
+            success: false,
+            message: 'Kesalahan Server'
+        })
     }
 }
 
 //detail proposal
-const detailProposal = async (req,res) => {
+const detailProposal = async (req, res) => {
     try {
         const nim_ketua = req.mahasiswa.nim
 
-        const findKelompok = await modelKelompok.findOne({where:{nim_ketua: nim_ketua}})
+        const findKelompok = await modelKelompok.findOne({
+            where: {
+                nim_ketua: nim_ketua
+            }
+        })
         if (!findKelompok) {
-            return res.status(400).json({success: false, message: 'Kelompok mahasiswa tidak ditemukan'})
+            return res.status(400).json({
+                success: false,
+                message: 'Kelompok mahasiswa tidak ditemukan'
+            })
         }
         const findPengajuan = await modelPengajuanKp.findOne({
+<<<<<<< HEAD
+            where: {
+                id_kelompok: findKelompok.id_kelompok,
+                id_proposal: {
+                    [Op.ne]: null
+=======
             where:{
-                id_kelompok:findKelompok.id_kelompok
+                id_kelompok:findKelompok.id_kelompok,
+                id_proposal: {
+                    [Op.ne]: null
+                }
             },
             include: [
                 {
                     model: modelProposal,
                     as: 'dataProposalPengajuan',
                     attributes: ['id_proposal', 'tanggal_pengajuan', 'judul_proposal', 'perusahaan_tujuan', 'lokasi', 'file_proposal']
+>>>>>>> 77c88735396e43d587f154db54a18855ee0c106f
                 }
-            ],
+            },
+            include: [{
+                model: modelProposal,
+                as: 'dataProposalPengajuan',
+                attributes: ['id_proposal', 'tanggal_pengajuan', 'judul_proposal', 'perusahaan_tujuan', 'lokasi', 'file_proposal']
+            }],
             attributes: ['id_pengajuan']
         })
         if (!findPengajuan) {
-            return res.status(400).json({success: false, message: 'Belum melakukan pengajuan Kp dan Proposal'})
+            return res.status(400).json({
+                success: false,
+                message: 'Belum melakukan pengajuan Kp dan Proposal'
+            })
         }
 
-        return res.status(200).json({success:true, message: 'Sudah melakukan pengajuan Kp dan proposal', data: findPengajuan})
+        return res.status(200).json({
+            success: true,
+            message: 'Sudah melakukan pengajuan Kp dan proposal',
+            data: findPengajuan
+        })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({success: false, message: 'Kesalahan Server'})
+        return res.status(500).json({
+            success: false,
+            message: 'Kesalahan Server'
+        })
     }
 }
 
+<<<<<<< HEAD
+module.exports = {
+    uploadProposal,
+    uploadd,
+    editProposal,
+    hapusProposal,
+    detailProposal
+}
+=======
 module.exports = {uploadProposal, uploadd, editProposal, hapusProposal, detailProposal}
+>>>>>>> 77c88735396e43d587f154db54a18855ee0c106f
