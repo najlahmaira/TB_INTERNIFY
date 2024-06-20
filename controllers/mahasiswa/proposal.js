@@ -302,6 +302,7 @@ const detailProposal = async (req, res) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 module.exports = {
     uploadProposal,
     uploadd,
@@ -309,6 +310,9 @@ module.exports = {
     hapusProposal,
     detailProposal
 }
+=======
+module.exports = {uploadProposal, uploadd, editProposal, hapusProposal, detailProposal}
+>>>>>>> 77c88735396e43d587f154db54a18855ee0c106f
 =======
 module.exports = {uploadProposal, uploadd, editProposal, hapusProposal, detailProposal}
 >>>>>>> 77c88735396e43d587f154db54a18855ee0c106f
