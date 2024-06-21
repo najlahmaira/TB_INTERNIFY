@@ -196,7 +196,7 @@
             const token = localStorage.getItem('token');
             const myHeaders = new Headers();
             myHeaders.append('Authorization', `Bearer ${token}`);
-            myHeaders.append('Content-Type', `application/json`);
+            myHeaders.append('Content-Type', 'application/json');
             
 
             const password_baru = document.getElementById('password').value;
