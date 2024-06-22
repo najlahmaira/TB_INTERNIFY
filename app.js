@@ -4,6 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+const fs = require('fs');
+
+var logger = require('morgan');
+var app = express();
 const server = require('./routes/index')
 
 // view engine setup
@@ -15,13 +19,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(bodyParser.raw({ type: 'application/pdf', limit: '10mb' }));
 app.use('/', server.dataUser)
 app.use('/', server.login)
 app.use('/', server.proposalMhs)
 app.use('/', server.view)
 app.use('/', server.balasanMhs)
 app.use('/', server.balasanSekre)
+app.use('/', server.suratTugasPengantarSekre)
 app.use('/', server.notifikasiMhs)
 app.use('/', server.profileMhs)
 
