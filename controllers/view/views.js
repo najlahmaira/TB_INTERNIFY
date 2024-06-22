@@ -1,5 +1,13 @@
 const response = require('express')
 const jwt = require('jsonwebtoken');
+const modelKelompok = require('../../models/kelompok')
+const modelAnggota = require('../../models/anggota')
+const modelTugas = require('../../models/surat_tugas')
+const modelPengantar = require('../../models/surat_pengantar')
+const modelMahasiswa = require('../../models/mahasiswa')
+const dosen = require('../../models/dosen')
+const modelPengajuanKp = require('../../models/pengajuan_kp')
+const { Op } = require('sequelize')
 const controller = {}
 
 const loginMhs = async (req, res) => {
