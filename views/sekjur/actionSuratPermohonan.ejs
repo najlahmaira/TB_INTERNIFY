@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Tugas Dosen</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 2cm;
+            background: white;
+            margin: auto;
+            display: block;
+        }
+
+        .no-page-break {
+            page-break-inside: avoid;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        @media print {
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pages">
+        <div class="page mx-auto bg-white">
+            <!-- Header with Image -->
+            <div class="flex justify-center" style="margin-top: -40px;">
+                <img src="/img/header.png" alt="Header Image" class="w-full">
+            </div>
+
+            <!-- Horizontal Line -->
+            <hr class="border-t-2 border-gray-800 mt-1">
+
+
+            <!-- Isi Surat -->
+            <div class="my-4">
+                <div class="flex justify-between">
+                    <div>Nomor: <%= data?.no %>
+                    </div>
+                    <div>Padang</div>
+                </div>
+                <div>Lampiran: </div>
+                <div>Hal: Permohonan kerja praktek</div>
+
+                <p class="mt-4 mb-4">Kepada Yth,<br />
+                    Kepala <%= data?.perusahaan_tujuan%><br />
+                        Di Tempat</p>
+                <p class="mb-3">Dengan Hormat, </p>
+                <p>Dalam rangka melengkapi kurikulum Departemen Sistem Informasi, Fakultas Teknologi Informasi
+                    Universitas Andalas, maka
+                    setiap mahasiswa diwajibkan untuk melaksanakan Kerja Praktek agar dapat mengenal, memahami dan
+                    mengimplementasikan ilmu
+                    yang telah diperoleh saat perkuliahan.<br /><br />
+                    Sehubungan dengan hal tersebut, kami mengharapkan kesediaan Bapak/Ibu untuk dapat menerima mahasiswa
+                    Departemen Sistem
+                    Informasi berikut ini (Terlampir).<br /><br />
+                    Untuk melaksanakan Kerja Praktek di instansi / perusahaan yang Bapak/Ibu pimpin mulai tanggal <%=
+                        data.tanggal_mulai%> - <%= data.tanggal_selesai %><br />
+
+                            Mohon kepada mahasiswa yang bersangkutan untuk dapat ditugaskan pekerjaan yang sesuai dengan
+                            bidangnya yaitu Sistem
+                            Informasi.<br /><br />
+                            Besar harapan kami Bapak/Ibu dapat memberikan kesempatan kepada mahasiswa tersebut untuk
+                            melaksanakan Kerja Praktek di
+                            instansi Bapak/Ibu.</p>
+
+                <p class="mt-4 mb-4">Atas perhatian dan kerjasamanya Kami ucapkan terima kasih.</p>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="flex justify-end mt-8">
+                <!-- Tembusan -->
+
+                <!-- Tanda Tangan -->
+
+                <div class="w-48">
+
+                    <p>Ketua,</p>
+                    <div class="h-24"></div> <!-- Space for signature -->
+                    <p>
+                        <%= dataKelompok[0]?.namaDosen.nama %>
+                    </p>
+                    <p>Nip.<%= dataKelompok[0]?.nip_dosen %>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="page mx-auto bg-white">
+            <!-- Header with Image -->
+            <div class="flex justify-center" style="margin-top: -40px;">
+                <img src="/img/header.png" alt="Header Image" class="w-full">
+            </div>
+
+            <!-- Horizontal Line -->
+            <hr class="border-t-2 border-gray-800 mt-1">
+
+            <!-- Isi Surat -->
+            <div class="my-4">
+                <p class="mb-4">Lampiran:</p>
+
+                <div class="flex items-center justify-center">
+                    <!-- Tabel Anggota Tim -->
+                    <table class="table-auto w-full border-collapse border border-gray-800 no-page-break"
+                        style="width: 80%;">
+                        <thead>
+                            <tr>
+                                <th class="border border-gray-800 px-4 py-2">No.</th>
+                                <th class="border border-gray-800 px-4 py-2">Nama</th>
+                                <th class="border border-gray-800 px-4 py-2">NIM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% dataRow?.forEach((kelompok, index)=> { %>
+                                <% kelompok.dataAnggota.forEach((anggota, anggotaIndex)=> { %>
+                                    <tr>
+                                        <% if (anggotaIndex===0) { %>
+                                            <td rowspan="<%= kelompok.dataAnggota.length %>"
+                                                class="border border-gray-800 px-4 py-2">
+                                                <%= index + 1 %>
+                                            </td>
+
+                                            <% } %>
+                                                <td class="border border-gray-800 px-4 py-2">
+                                                    <%= anggota.nama.nama %>
+                                                </td>
+                                                <td class="border border-gray-800 px-4 py-2">
+                                                    <%= anggota.nim_anggota %>
+                                                </td>
+
+                                    </tr>
+                                    <% }) %>
+                                        <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="flex justify-end mt-8">
+                <!-- Tanda Tangan -->
+                <div class="w-48">
+
+                    <p>Ketua,</p>
+                    <div class="h-24"></div> <!-- Space for signature -->
+                    <p>
+                        <%= dataKelompok[0]?.namaDosen.nama %>
+                    </p>
+                    <p>Nip.<%= dataKelompok[0]?.nip_dosen %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            window.onload = function () {
+                const id_tugas = '<%= data.id_suratPengantar %>'
+                const options = {
+                    filename: 'surat_permohonan.pdf', // Nama file untuk menyimpan PDF
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
+                };
+    
+                // Mengonversi elemen #pages ke PDF menggunakan html2pdf
+                html2pdf().set(options).from(document.getElementById('pages')).toPdf().get('pdf').then(function (pdf) {
+                    // Convert PDF to Uint8Array
+                    const arrayBuffer = pdf.output('arraybuffer');
+    
+                    // Kirim arrayBuffer (PDF) ke backend
+                    sendPDFToBackend(arrayBuffer);
+                }).catch(function (error) {
+                    console.error('Error converting PDF:', error);
+                });
+    
+              function sendPDFToBackend(pdfData) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', window.location.origin + '/save-pdf?name=' + 'surat_pengantar.pdf' + '&id=' + id_tugas); // Ganti dengan URL endpoint Anda
+                    xhr.setRequestHeader('Content-Type', 'application/pdf');
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            console.log('File saved successfully on server');
+                            window.location.href = '/suratPengantar/view/' + id_tugas
+                        } else {
+                            console.error('Failed to save file on server:', xhr.statusText);
+                        }
+                    };
+                    xhr.send(new Blob([pdfData], { type: 'application/pdf' })); // Kirim data PDF
+                }
+
+            };
+        </script>
+</body>
+
+</html>

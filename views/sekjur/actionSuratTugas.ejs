@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Tugas Dosen</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .page {
+            width: 18.7cm;
+            /* Adjust the width to fit content within A4 size */
+            height: 26.7cm;
+            /* Adjust the height to fit content within A4 size */
+            padding: 2cm 1cm;
+            background: white;
+        }
+
+        /* Style your content as needed */
+        .page-content {
+            /* Example styles for your content */
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page mx-auto bg-white">
+        <!-- Konten Surat Tugas Anda -->
+        <div class="page-content">
+            <!-- Pastikan konten yang ingin dicetak berada dalam satu halaman -->
+            <div class="flex justify-center" style="margin-top: -40px;">
+                <img src="/img/header.png" alt="Header Image" class="w-full">
+            </div>
+
+            <!-- Horizontal Line -->
+            <hr class="border-t-2 border-gray-800 mt-1">
+
+            <!-- Title -->
+            <div class="text-center my-1">
+                <h1 class="text-1xl font-bold">SURAT TUGAS</h1>
+            </div>
+
+            <!-- No Surat -->
+            <div class="text-center">
+                <p>Nomor: <%= data?.no  %></p>
+            </div>
+
+            <!-- Isi Surat -->
+            <div class="my-4">
+                <p class="mb-4">Ketua Departemen Sistem Informasi menugaskan kepada mahasiswa Departemen Sistem
+                    Informasi berikut:</p>
+
+                <div class="flex items-center justify-center">
+                    <table class="table-auto border-collapse border border-gray-800 mb-4" style="width: 80%;">
+                        <thead>
+                            <tr>
+                                <th class="border border-gray-800 px-4 py-2" style="width: 1px; white-space: nowrap;">
+                                    No.</th>
+                                <th class="border border-gray-800 px-4 py-2">Nama</th>
+                                <th class="border border-gray-800 px-4 py-2">NIM</th>
+                            </tr>
+                        </thead>
+                    <tbody>
+                        <% dataRow?.forEach((kelompok, index)=> { %>
+                            <% kelompok.dataAnggota.forEach((anggota, anggotaIndex)=> { %>
+                                <tr>
+                                    <% if (anggotaIndex===0) { %>
+                                        <td rowspan="<%= kelompok.dataAnggota.length %>" class="border border-gray-800 px-4 py-2">
+                                            <%= index + 1 %>
+                                        </td>
+                                     
+                                        <% } %>
+                                        <td class="border border-gray-800 px-4 py-2">
+                                            <%= anggota.nama.nama %>
+                                        </td>
+                                            <td class="border border-gray-800 px-4 py-2">
+                                                <%= anggota.nim_anggota %>
+                                            </td>
+                                         
+                                </tr>
+                                <% }) %>
+                                    <% }) %>
+                    </tbody>
+                    </table>
+                </div>
+
+                <p class="mb-4">Untuk Mengikuti Mata Kuliah Kerja Praktek yang dilaksanakan di <%= data.perusahaan_tujuan %></p>
+                <p class="mb-4">Surat Tugas ini berlaku mulai <%= data.tanggal_mulai%> - <%= data.tanggal_selesai %></p>
+                <p class="mb-4">Demikian surat tugas ini dibuat untuk dilaksanakan sebagaimana mestinya.</p>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="flex justify-between mt-8">
+                <!-- Tembusan -->
+                <div>
+                    <p class="font-bold">Tembusan:</p>
+                    <ol class="list-decimal list-inside">
+                        <li>Yang bersangkutan</li>
+                        <li>Arsip</li>
+                    </ol>
+                </div>
+                <!-- Tanda Tangan -->
+                <div>
+                    <p>Universitas Andalas, .....</p>
+                    <p>Ketua,</p>
+                    <div class="h-24"></div> <!-- Space for signature -->
+                    <p><%= dataKelompok[0]?.namaDosen.nama %></p>
+                    <p>Nip.<%= dataKelompok[0]?.nip_dosen %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    window.onload = function () {
+        const id_tugas='<%= data.id_surat_tugas %>'
+        const options = {
+            filename: 'surat_tugas.pdf', // Nama file untuk menyimpan PDF
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Mengonversi .page ke PDF menggunakan html2pdf
+        html2pdf().set(options).from(document.querySelector('.page')).toPdf().get('pdf').then(function (pdf) {
+            // Convert PDF to Uint8Array
+            const arrayBuffer = pdf.output('arraybuffer');
+
+            // Kirim arrayBuffer (PDF) ke backend
+            sendPDFToBackend(arrayBuffer);
+        }).catch(function (error) {
+            console.error('Error converting PDF:', error);
+        });
+
+        function sendPDFToBackend(pdfData) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', window.location.origin+'/save-pdf?name='+'surat_tugas.pdf'+'&id='+id_tugas); // Ganti dengan URL endpoint Anda
+            xhr.setRequestHeader('Content-Type', 'application/pdf');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log('File saved successfully on server');
+                    window.location.href='/suratTugas/view/'+id_tugas
+                } else {
+                    console.error('Failed to save file on server:', xhr.statusText);
+                }
+            };
+            xhr.send(new Blob([pdfData], { type: 'application/pdf' })); // Kirim data PDF
+        }
+    };
+</script>
+</body>
+
+</html>
