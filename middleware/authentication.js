@@ -13,7 +13,8 @@ const verifyTokenMahasiswa = (req, res, next) => {
             })
         }
 
-        const token = authHeader.split(' ')[1];
+        const token = authHeader.split(' ')[1] || req.cookies.token
+    ;
     
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, mahasiswa) => {
             if (err) {
@@ -47,16 +48,17 @@ const verifyTokenMahasiswa = (req, res, next) => {
 
 const verifyTokenSekre = (req, res, next) => {    
     try {
-        const authHeader = req.get('Authorization');
+        // const authHeader = req.get('Authorization');
     
-        if (!authHeader) {
-            res.status(404).json({
-                success: false,
-                message: 'Masukkan token terlebih dahulu'
-            })
-        }
+        // if (!authHeader) {
+        //     res.status(404).json({
+        //         success: false,
+        //         message: 'Masukkan token terlebih dahulu'
+        //     })
+        // }
 
-        const token = authHeader.split(' ')[1];
+        //const token = authHeader.split(' ')[1];
+        const token = req.cookies.token
     
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, sekretaris) => {
             if (err) {

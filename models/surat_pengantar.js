@@ -13,6 +13,10 @@ const surat_pengantar = sequelize.define('surat_pengantar', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    no: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     tanggal_mulai: {
         type: DataTypes.DATE,
         allowNull: false
