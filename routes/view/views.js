@@ -19,5 +19,9 @@ router.get('/dataMahasiswa', controller.dataMahasiswa)
 router.get('/tambahDosen/:id', controller.tambahDosen)
 router.get('/pengajuanSuratTugas', controller.pengajuanSuratTugas)
 router.get('/pengajuanSuratPengantar', controller.pengajuanSuratPengantar)
+router.get('/notifikasiMhsView', controller.notifikasiMhs)
+router.get('/unggahProposalView', controller.unggahProposal)
+router.get('/changePassView', controller.changePass)
+
 
 module.exports = router

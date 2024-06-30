@@ -271,6 +271,14 @@ const pengajuanSuratPengantar = async (req, res) => {
 }
 controller.pengajuanSuratPengantar = pengajuanSuratPengantar;
 
+const notifikasiMhs = async (req, res) => {
+    res.render('mahasiswa/notifikasi')
+}
+controller.notifikasiMhs = notifikasiMhs;
 
+const changePass = async (req, res) => {
+    res.render('mahasiswa/changePass')
+}
+controller.changePass = changePass;
 
 module.exports = controller
