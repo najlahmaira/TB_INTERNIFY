@@ -43,7 +43,7 @@
                             d="M9.00017 1C8.79168 0.999972 8.58563 1.04476 8.39597 1.13134C8.20631 1.21791 8.03748 1.34424 7.90092 1.50177C7.76435 1.6593 7.66325 1.84435 7.60446 2.04437C7.54567 2.2444 7.53056 2.45472 7.56017 2.66109C6.50608 2.97231 5.58094 3.61616 4.92292 4.49649C4.26491 5.37681 3.90932 6.44638 3.90926 7.54545V13.3636H3.18198C2.9891 13.3636 2.80412 13.4403 2.66773 13.5766C2.53134 13.713 2.45471 13.898 2.45471 14.0909C2.45471 14.2838 2.53134 14.4688 2.66773 14.6052C2.80412 14.7416 2.9891 14.8182 3.18198 14.8182H14.8183C15.0112 14.8182 15.1962 14.7416 15.3326 14.6052C15.469 14.4688 15.5456 14.2838 15.5456 14.0909C15.5456 13.898 15.469 13.713 15.3326 13.5766C15.1962 13.4403 15.0112 13.3636 14.8183 13.3636H14.0911V7.54545C14.091 6.44638 13.7354 5.37681 13.0774 4.49649C12.4194 3.61616 11.4943 2.97231 10.4402 2.66109C10.4698 2.45472 10.4547 2.2444 10.3959 2.04437C10.3371 1.84435 10.236 1.6593 10.0994 1.50177C9.96285 1.34424 9.79402 1.21791 9.60436 1.13134C9.4147 1.04476 9.20865 0.999972 9.00017 1ZM10.4547 16.2727C10.4547 16.4656 10.3781 16.6506 10.2417 16.787C10.1053 16.9234 9.92032 17 9.72744 17H8.27289C8.08001 17 7.89502 16.9234 7.75863 16.787C7.62224 16.6506 7.54562 16.4656 7.54562 16.2727C7.54562 16.0798 7.62224 15.8949 7.75863 15.7585C7.89502 15.6221 8.08001 15.5455 8.27289 15.5455H9.72744C9.92032 15.5455 10.1053 15.6221 10.2417 15.7585C10.3781 15.8949 10.4547 16.0798 10.4547 16.2727Z"
                             fill="#365DA8" />
                     </svg>
-                    <span class="text-[15px] ml-4 text-customBlue">Notifikasi</span>
+                    <a href="/notifikasiMhsView" class="text-[15px] ml-4 text-customBlue">Notifikasi</a>
                 </div>
                 <div class="p-2.5 ms-2 mt-2 flex items-center rounded-md px-4">
                     <span class="text-[15px] text-customBTransparant">Alur Pendaftaran</span>
@@ -125,7 +125,7 @@
                             </clipPath>
                         </defs>
                     </svg>
-                    <span class="text-[15px] ml-4 text-customBlue">Profile</span>
+                    <a href="/changePassView" class="text-[15px] ml-4 text-customBlue">Profile</a>
                 </div>
             </div>
         </div>
@@ -136,55 +136,234 @@
     <div class="sideKanan p-1">
         <h2 class="text-customBlue text-[28px] font-bold">Unggah Surat Balasan</h2>
         <p class="mt-1 text-[18px]">Silakan unggah surat balasan resmi dari perusahaan</p>
-        <form action="" class="pt-5 pe-10">
-            <label class="block mt-5">
-                <span class="font-light">Tanggal Pengajuan</span>
-                <input type="date" name="tanggal_pengajuan"
-                    class="mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block formUnggah rounded-md sm:text-sm focus:ring-1" />
-            </label>
-            <label class="block mt-5">
-                <span class="font-light">Perusahaan Tujuan</span>
-                <input type="text" name="perusahaan_tujuan"
-                    class="mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block formUnggah rounded-md sm:text-sm focus:ring-1"
-                    placeholder="Perusahaan Tujuan" />
-            </label>
-            <label class="block mt-5">
-                <span class="font-light">Status</span>
-                <div class="flex mt-2">
-                    <label class="me-5 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200 ..">
-                        <input type="radio" class="checked:border-indigo-500 ..." />
-                        Diterima
-                    </label>
-                    <label class="ms-5 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-900 has-[:checked]:ring-indigo-200 ..">
-                        <input type="radio" class="checked:border-indigo-500 ..." />
-                        Ditolak
-                    </label>
-                </div>
-            </label>
-            <div
-                class="w-full mt-5 mx-auto my-2 border-2 border-dashed border-gray-400 p-4 rounded-lg flex flex-col items-center">
-                <div class="shrink-0">
-                    <input type="file" id="file-upload" class="file-input">
-                    <label for="file-upload" class="svg-upload flex flex-col items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="152" height="151" viewBox="0 0 152 151"
-                            fill="none" class="mt-4">
-                            <rect width="152" height="150.375" rx="75.1875" fill="#F2F6FF" />
-                            <path
-                                d="M50 87.388V90.625C50 93.2109 51.0272 95.6908 52.8557 97.5193C54.6842 99.3478 57.1641 100.375 59.75 100.375H92.25C94.8359 100.375 97.3158 99.3478 99.1443 97.5193C100.973 95.6908 102 93.2109 102 90.625V87.375M76 85.75V50M76 50L87.375 61.375M76 50L64.625 61.375"
-                                stroke="#365DA8" stroke-width="4.875" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <p class="mt-4 text-gray-600">Klik Untuk Mengunggah</p>
-                    </label>
-                </div>
-            </div>
-            <label>Upload file PDF dengan ukuran maksimal 5MB</label>
-            <br>
-            <button class="bg-customBlue text-customeLBlue hover:bg-sky-700 w-full mt-7 mb-7 btnKirim" type="submit">
-                Kirim
-            </button>
-        </form>
+        <div id="balasanContainer">
+            <!-- Form Balasan -->
+        </div>
     </div>
     <!-- Main Section End -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const balasanContainer = document.getElementById('balasanContainer');
+            const token = localStorage.getItem('token');
+            const myHeaders = new Headers();
+            myHeaders.append('Authorization', `Bearer ${token}`);
+  
+            try {
+                const response = await fetch('/detailBalasan', {
+                method: 'GET',
+                headers: myHeaders
+                });
+        
+                const result = await response.json();
+                if (result.success) {
+                // If proposal null false
+                const balasan = result.data.dataPengajuanBalasan;
+                balasanContainer.innerHTML = `
+                    <form id="balasanForm" class="pt-5 pe-10">
+                        <input type="hidden" id="id_suratBalasan" value="${balasan.id_suratBalasan}" />
+                        <label class="block mt-5">
+                            <span class="font-light">Tanggal Pengajuan</span>
+                            <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan" value="${balasan.tanggal_pengajuan}"
+                                class="mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block formUnggah rounded-md sm:text-sm focus:ring-1" />
+                        </label>
+                        <label class="block mt-5">
+                            <span class="font-light">Perusahaan Tujuan</span>
+                            <input type="text" id="perusahaan_tujuan" name="perusahaan_tujuan" value="${balasan.perusahaan_tujuan}"
+                                class="mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block formUnggah rounded-md sm:text-sm focus:ring-1"
+                                placeholder="Perusahaan Tujuan" />
+                        </label>
+                        <label class="block mt-5">
+                            <span class="font-light">Status</span>
+                            <div class="flex mt-2">
+                                <label class="me-5">
+                                    <input type="radio" id="status_diterima" name="status" value="diterima" class="checked:border-indigo-500 ..." ${balasan.status === 'diterima' ? 'checked' : ''} />
+                                    Diterima
+                                </label>
+                                <label class="ms-5">
+                                    <input type="radio" id="status_ditolak" name="status" value="ditolak" class="checked:border-indigo-500 ..." ${balasan.status === 'ditolak' ? 'checked' : ''} />
+                                    Ditolak
+                                </label>
+                            </div>
+                        </label>
+                        <div
+                            class="w-full mt-5 mx-auto my-2 border-2 border-dashed border-gray-400 p-4 rounded-lg flex flex-col items-center">
+                            <div class="shrink-0">
+                                <input type="file" id="file_upload" class="file-input">
+                                <label for="file_upload" class="svg-upload flex flex-col items-center">
+                                    <svg width="170" height="170" viewBox="0 0 170 170" fill="none" class="mt-4"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                        d="M138.125 73.4619V138.125C138.125 142.352 136.446 146.406 133.457 149.395C130.468 152.383 126.414 154.062 122.188 154.062H47.8125C43.5856 154.062 39.5318 152.383 36.543 149.395C33.5541 146.406 31.875 142.352 31.875 138.125V31.875C31.875 27.6481 33.5541 23.5943 36.543 20.6055C39.5318 17.6166 43.5856 15.9375 47.8125 15.9375H80.6006C83.4175 15.9379 86.119 17.057 88.1111 19.0486L135.014 65.9514C137.006 67.9435 138.125 70.645 138.125 73.4619Z"
+                                        stroke="#365DA8" stroke-width="10.625" stroke-linejoin="round" />
+                                        <path
+                                        d="M85 18.5938V58.4375C85 61.2554 86.1194 63.9579 88.112 65.9505C90.1046 67.9431 92.8071 69.0625 95.625 69.0625H135.469"
+                                        stroke="#365DA8" stroke-width="10.625" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <p class="mt-4 text-gray-600" id="file_name">${balasan.file_surat_balasan}</p>
+                                </label>
+                            </div>
+                        </div>
+                        <label>Upload file PDF dengan ukuran maksimal 5MB</label>
+                        <br>
+                        <div class="flex mt-7 mb-7 justify-center">
+                            <button class="me-5 bg-customBlue text-customeLBlue hover:bg-sky-700 w-60 btnKirim" type="button" onclick="editProposal()">
+                                Edit
+                            </button>
+                            <button class="ms-5 bg-customeGrey text-black-800 hover:bg-customeLBlue w-60 btnKirim" type="button" onclick="deleteProposal()">
+                                Hapus
+                            </button>
+                        </div>
+                    </form>
+                `;
+                } else {
+                // Else proposal null
+                balasanContainer.innerHTML = `
+                    <form id="balasanForm" class="pt-5 pe-10">
+                        <label class="block mt-5">
+                            <span class="font-light">Tanggal Pengajuan</span>
+                            <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan"
+                                class="mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block formUnggah rounded-md sm:text-sm focus:ring-1" />
+                        </label>
+                        <label class="block mt-5">
+                            <span class="font-light">Perusahaan Tujuan</span>
+                            <input type="text" id="perusahaan_tujuan" name="perusahaan_tujuan"
+                                class="mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block formUnggah rounded-md sm:text-sm focus:ring-1"
+                                placeholder="Perusahaan Tujuan" />
+                        </label>
+                        <label class="block mt-5">
+                            <span class="font-light">Status</span>
+                            <div class="flex mt-2">
+                                <label class="me-5">
+                                    <input type="radio" id="status_diterima" name="status" value="diterima"
+                                        class="checked:border-indigo-500 ..." />
+                                    Diterima
+                                </label>
+                                <label class="ms-5">
+                                    <input type="radio" id="status_ditolak" name="status" value="ditolak"
+                                        class="checked:border-indigo-500 ..." />
+                                    Ditolak
+                                </label>
+                            </div>
+                        </label>
+                        <div
+                            class="w-full mt-5 mx-auto my-2 border-2 border-dashed border-gray-400 p-4 rounded-lg flex flex-col items-center">
+                            <div class="shrink-0">
+                                <input type="file" id="file_upload" class="file-input">
+                                <label for="file_upload" class="svg-upload flex flex-col items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="152" height="151" viewBox="0 0 152 151"
+                                        fill="none" class="mt-4">
+                                        <rect width="152" height="150.375" rx="75.1875" fill="#F2F6FF" />
+                                        <path
+                                            d="M50 87.388V90.625C50 93.2109 51.0272 95.6908 52.8557 97.5193C54.6842 99.3478 57.1641 100.375 59.75 100.375H92.25C94.8359 100.375 97.3158 99.3478 99.1443 97.5193C100.973 95.6908 102 93.2109 102 90.625V87.375M76 85.75V50M76 50L87.375 61.375M76 50L64.625 61.375"
+                                            stroke="#365DA8" stroke-width="4.875" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <p class="mt-4 text-gray-600" id="file_name">Klik Untuk Mengunggah</p>
+                                </label>
+                            </div>
+                        </div>
+                        <label>Upload file PDF dengan ukuran maksimal 5MB</label>
+                        <br>
+                        <button class="bg-customBlue text-customeLBlue hover:bg-sky-700 w-full mt-7 mb-7 btnKirim" id="btnKirim"
+                            type="submit">
+                            Kirim
+                        </button>
+                    </form>
+                `;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+  
+
+            const fileInput = document.getElementById('file_upload');
+            const fileName = document.getElementById('file_name');
+
+            fileInput.addEventListener('change', function () {
+                if (fileInput.files.length > 0) {
+                    fileName.textContent = fileInput.files[0].name;
+                } else {
+                    fileName.textContent = 'Klik Untuk Mengunggah';
+                }
+            });
+
+            document.querySelector('form').addEventListener('submit', async function (event) {
+                const token = localStorage.getItem('token');
+                const myHeaders = new Headers();
+                myHeaders.append('Authorization', `Bearer ${token}`);
+
+                event.preventDefault();
+                const tanggal_pengajuan = document.getElementById('tanggal_pengajuan').value;
+                const perusahaan_tujuan = document.getElementById('perusahaan_tujuan').value;
+                const fileUpload = document.getElementById('file_upload').files[0];
+                const statusInputs = document.querySelectorAll('input[name="status"]');
+
+
+                if (fileUpload && fileUpload.type !== 'application/pdf') {
+                    Swal.fire({
+                        title: 'Hanya jenis file PDF yg di izinkan!',
+                        icon: 'info',
+                    });
+                    return;
+                }
+
+                // Append status value from radio button
+                let statusValue;
+                statusInputs.forEach(input => {
+                    if (input.checked) {
+                        statusValue = input.value;
+                    }
+                });
+
+                if (!statusValue) {
+                    Swal.fire({ 
+                        title: 'Silahkan pilih status.',
+                        icon: 'info',
+                    });
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('tanggal_pengajuan', tanggal_pengajuan);
+                formData.append('perusahaan_tujuan', perusahaan_tujuan);
+                formData.append('file', fileUpload);
+                formData.append('status', statusValue);
+
+                try {
+                    const response = await fetch('/uploadBalasan', {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    if (!result.success) {
+                        Swal.fire({
+                            title: result.message,
+                            icon: 'error'
+                        });
+                    } else {
+                        Swal.fire({
+                            title: result.message,
+                            icon: 'success',
+                            customClass: {
+                                popup: 'swal2-popup-custom'
+                            },
+                            willClose: () => {
+                                location.reload();
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat mengirim data');
+                }
+            });
+        });
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

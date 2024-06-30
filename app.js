@@ -7,6 +7,10 @@ const bodyParser = require('body-parser');
 
 var logger = require('morgan');
 var app = express();
+const fs = require('fs');
+
+var logger = require('morgan');
+var app = express();
 const server = require('./routes/index')
 
 // view engine setup

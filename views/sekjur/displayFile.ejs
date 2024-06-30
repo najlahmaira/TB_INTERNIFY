@@ -7,6 +7,11 @@
     <title>Display Surat Balasan</title>
     <link href="/src/output.css" rel="stylesheet">
     <link href="/src/sidebar.css" rel="stylesheet">
+    <style>
+        .container{
+            padding: 2% 12%;
+        }
+    </style>
 </head>
 
 <body>
@@ -87,7 +92,7 @@
                             d="M1.172 1.172C-1.19209e-07 2.343 0 4.229 0 8V12C0 15.771 -1.19209e-07 17.657 1.172 18.828C2.343 20 4.229 20 8 20H10C13.771 20 15.657 20 16.828 18.828C18 17.657 18 15.771 18 12V8C18 4.229 18 2.343 16.828 1.172C15.657 -1.19209e-07 13.771 0 10 0H8C4.229 0 2.343 -1.19209e-07 1.172 1.172ZM5 7.25C4.80109 7.25 4.61032 7.32902 4.46967 7.46967C4.32902 7.61032 4.25 7.80109 4.25 8C4.25 8.19891 4.32902 8.38968 4.46967 8.53033C4.61032 8.67098 4.80109 8.75 5 8.75H13C13.1989 8.75 13.3897 8.67098 13.5303 8.53033C13.671 8.38968 13.75 8.19891 13.75 8C13.75 7.80109 13.671 7.61032 13.5303 7.46967C13.3897 7.32902 13.1989 7.25 13 7.25H5ZM5 11.25C4.80109 11.25 4.61032 11.329 4.46967 11.4697C4.32902 11.6103 4.25 11.8011 4.25 12C4.25 12.1989 4.32902 12.3897 4.46967 12.5303C4.61032 12.671 4.80109 12.75 5 12.75H10C10.1989 12.75 10.3897 12.671 10.5303 12.5303C10.671 12.3897 10.75 12.1989 10.75 12C10.75 11.8011 10.671 11.6103 10.5303 11.4697C10.3897 11.329 10.1989 11.25 10 11.25H5Z"
                             fill="#365DA8" />
                     </svg>
-                    <a href="suratBalasan.html" class="text-[15px] ml-4 text-customBlue font-bold">Surat Balasan</a>
+                    <a href="/suratBalasanView" class="text-[15px] ml-4 text-customBlue font-bold">Surat Balasan</a>
                 </div>
                 <div class="ms-6 rounded-md px-4 marginTop">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2" height="18" viewBox="0 0 2 18" fill="none">
@@ -133,14 +138,52 @@
     <!-- Navbar Section End -->
 
     <!-- Main Section Start -->
-    <div class="sideKanan p-1 me-24">
-        <h2 class="text-customBlue text-[28px] font-bold">LLDIKTI</h2>        
-        <div class="container mx-auto p-4">
-            <embed src="/img/2565-7531-3-PB.pdf" type="application/pdf" class="w-full h-screen rounded shadow-lg">
+    <div class="max-w-4xl mx-auto sideKanan p-8 me-24">
+        <h2 class="text-customBlue text-[28px] font-bold file_name"></h2>
+        <div class="container mx-auto p-4" id="fileContainer">
+            <embed id="fileEmbed" src="" type="application/pdf" class="w-full h-screen rounded shadow-lg">
         </div>
     </div>
-
     <!-- Main Section End -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (!id) {
+                document.getElementById('fileContainer').innerHTML = '<p class="text-center text-red-500">ID surat balasan tidak ditemukan</p>';
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('token');
+                const myHeaders = new Headers();
+                myHeaders.append('Authorization', `Bearer ${token}`);
+
+                const response = await fetch(`/getSuratBalasan?id=${id}`, {
+                    method: 'GET',
+                    headers: myHeaders
+                });
+
+                const result = await response.json();
+                if (!result.success) {
+                    throw new Error(result.message);
+                }
+
+                const filePath = result.filePath;
+                const fileName = filePath.split('/').pop(); 
+                document.getElementById('fileEmbed').src = filePath;
+                document.querySelector('.file_name').innerText = fileName;
+
+            } catch (error) {
+                console.error('Error:', error.message);
+                document.getElementById('fileContainer').innerHTML = `<p class="text-center text-red-500">Gagal memuat file surat balasan</p>`;
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
