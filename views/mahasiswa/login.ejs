@@ -68,9 +68,11 @@
                              showErrorToast(data.message || 'Failed to login. Please try again later.');
                         });
                     }
-                     window.location.href = '/dashboard'
+                     console.log('Login successful!');
+                     window.location.href = '/unggahProposal'
                 })
                 .catch(error => {
+                    console.error('Error:', error);
                     // Handle network errors or JSON parsing errors
                     //console.error('Error:', error);
                     showErrorToast(error);

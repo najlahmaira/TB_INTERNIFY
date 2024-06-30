@@ -5,7 +5,6 @@ const balasanMhs = require('./mahasiswa/balasan')
 const balasanSekre = require('./sekretaris/balasan')
 const suratTugasPengantarSekre = require('./sekretaris/suratTugas&Pengantar')
 const notifikasiMhs = require('./mahasiswa/notifikasi')
-const suratTugasPengantarSekre = require('./sekretaris/suratTugas&Pengantar')
 const profileMhs = require('./mahasiswa/profile')
 const view = require('./view/views')
 const server = {}
