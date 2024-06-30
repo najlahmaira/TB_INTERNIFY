@@ -294,20 +294,35 @@ const createTugas = async (req, res) => {
                 const nimValue = nim[i];
                 const namaValue = nama[i];
 
-                // Membuat mahasiswa baru
-                await modelMahasiswa.create({
-                    nim_ketua: nimValue,
-                    nama: namaValue,
-                    password: await bcrypt.hash('12345678', 10)
+                // Cek apakah mahasiswa sudah ada
+                let mahasiswa = await modelMahasiswa.findOne({ where: { nim_ketua: nimValue } });
+
+                // Jika mahasiswa tidak ada, buat baru
+                if (!mahasiswa) {
+                    mahasiswa = await modelMahasiswa.create({
+                        nim_ketua: nimValue,
+                        nama: namaValue,
+                        password: await bcrypt.hash('12345678', 10)
+                    });
+                }
+
+                // Cek apakah anggota sudah ada di kelompok
+                const anggota = await modelAnggota.findOne({
+                    where: {
+                        nim_anggota: nimValue,
+                        id_kelompok: tambahKelompok.id_kelompok
+                    }
                 });
 
-                // Menambahkan mahasiswa ke kelompok
-                await modelAnggota.create({
-                    nim_anggota: nimValue,
-                    id_kelompok: tambahKelompok.id_kelompok
-                });
-            }
-        }
+                // Jika anggota belum ada di kelompok, tambahkan
+                if (!anggota) {
+                    await modelAnggota.create({
+                        nim_anggota: nimValue,
+                        id_kelompok: tambahKelompok.id_kelompok
+                    });
+                }
+            }
+        }
 
         // Mengembalikan response dengan redirect ke halaman actionSuratTugas
         return res.redirect(`/actionSuratTugas?id_tugas=${tambahTugas.id_surat_tugas}&id_kelompok=${tambahKelompok.id_kelompok}`);
@@ -350,20 +365,35 @@ const createPengantar = async (req, res) => {
                 const nimValue = nim[i];
                 const namaValue = nama[i];
 
-                // Membuat mahasiswa baru
-                await modelMahasiswa.create({
-                    nim_ketua: nimValue,
-                    nama: namaValue,
-                    password: await bcrypt.hash('12345678', 10)
+                // Cek apakah mahasiswa sudah ada
+                let mahasiswa = await modelMahasiswa.findOne({ where: { nim_ketua: nimValue } });
+
+                // Jika mahasiswa tidak ada, buat baru
+                if (!mahasiswa) {
+                    mahasiswa = await modelMahasiswa.create({
+                        nim_ketua: nimValue,
+                        nama: namaValue,
+                        password: await bcrypt.hash('12345678', 10)
+                    });
+                }
+
+                // Cek apakah anggota sudah ada di kelompok
+                const anggota = await modelAnggota.findOne({
+                    where: {
+                        nim_anggota: nimValue,
+                        id_kelompok: tambahKelompok.id_kelompok
+                    }
                 });
 
-                // Menambahkan mahasiswa ke kelompok
-                await modelAnggota.create({
-                    nim_anggota: nimValue,
-                    id_kelompok: tambahKelompok.id_kelompok
-                });
-            }
-        }
+                // Jika anggota belum ada di kelompok, tambahkan
+                if (!anggota) {
+                    await modelAnggota.create({
+                        nim_anggota: nimValue,
+                        id_kelompok: tambahKelompok.id_kelompok
+                    });
+                }
+            }
+        }
 
         // Mengembalikan response dengan redirect ke halaman actionSuratTugas
         return res.redirect(`/actionSuratPermohonan?id_pengantar=${tambahTugas.id_suratPengantar}&id_kelompok=${tambahKelompok.id_kelompok}`);
@@ -372,6 +402,7 @@ const createPengantar = async (req, res) => {
         return res.status(500).send('Terjadi kesalahan pada server.');
     }
 };
+
 
 
 module.exports = { getListTugas, actionSuratPermohonan, actionSuratTugas, hapusTugas, hapusPengantar, updateStatusTolakPengantar, savePDF, createTugas, createPengantar}

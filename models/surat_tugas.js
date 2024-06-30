@@ -9,19 +9,19 @@ const surat_tugas = sequelize.define('surat_tugas', {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4
     },
-    tanggal_pengajuan:{
+    tanggal_mulai: {
         type: DataTypes.DATE,
         allowNull: false
     },
-    judul_proposal:{
-        type: DataTypes.STRING,
+    tanggal_selesai: {
+        type: DataTypes.DATE,
         allowNull: false
     },
     perusahaan_tujuan:{
         type: DataTypes.STRING,
         allowNull: false
     },
-    lokasi: {
+    no: {
         type: DataTypes.STRING,
         allowNull: false
     },

@@ -36,6 +36,7 @@ const loginMahasiswa = async (req,res) => {
                 token: token,
                 nim_ketua: nim
             })
+            res.cookie('token', token, { httpOnly: true });
             res.status(200).json({success:true, message: 'Login Berhasil', token: token})
         })        
     } catch (error) {
@@ -75,6 +76,7 @@ const loginSekretaris = async (req,res) => {
                 token: token,
                 nip: nip
             })
+            res.cookie('token', token, { httpOnly: true });
             res.status(200).json({success:true, message: 'Login Berhasil', token: token})
         })  
     } catch (error) {

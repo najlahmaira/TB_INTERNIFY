@@ -1,6 +1,7 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../config/db')
 const kelompok = require('./kelompok')
+const anggota = require('./anggota')
 const token_mahasiswa = require('./token_mahasiswa')
 
 const mahasiswa = sequelize.define('mahasiswa', {
@@ -36,6 +37,9 @@ mahasiswa.hasMany(token_mahasiswa, {foreignKey: 'nim_ketua', as: 'dataToken'})
 token_mahasiswa.belongsTo(mahasiswa, {foreignKey: 'nim_ketua', as: 'dataMahasiswa'})
 
 mahasiswa.hasOne(kelompok, {foreignKey: 'nim_ketua', as: 'datKelompok'})
-kelompok.belongsTo(mahasiswa, {foreignKey: 'nim_ketua', as: 'dataMahasiswaKlmpk'})
+kelompok.belongsTo(mahasiswa, {foreignKey: 'nim_ketua', as: 'namaKetua'})
+//kelompok.belongsTo(mahasiswa, { foreignKey: 'nim_anggota', as: 'dataMahasiswaAnggota', targetKey:'nim_ketua' })
+anggota.belongsTo(mahasiswa, { foreignKey: 'nim_anggota', as: 'nama' });
+
 
 module.exports = mahasiswa
